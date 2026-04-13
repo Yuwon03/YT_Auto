@@ -1,8 +1,12 @@
 {
-  "name": "ytauto",
+  "name": "@ytauto/ytauto",
   "version": "0.1.0",
   "description": "BMAD-style skills for YouTube idea, story, transcript, and TTS workflows.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yuwon03/YT_Auto.git"
+  },
   "bin": {
     "ytauto": "./bin/ytauto.mjs",
     "ytauto-skills": "./bin/ytauto.mjs"

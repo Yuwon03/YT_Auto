@@ -66,14 +66,14 @@ npm publish --access public
 Then install from npm:
 
 ```bash
-npm install -g ytauto
+npm install -g @ytauto/ytauto
 ytauto install
 ```
 
 Per-project npm install:
 
 ```bash
-npm install ytauto
+npm install @ytauto/ytauto
 npx ytauto install
 ```
 

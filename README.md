@@ -14,14 +14,14 @@ ytauto install
 From npm after publishing:
 
 ```bash
-npm install -g ytauto
+npm install -g @ytauto/ytauto
 ytauto install
 ```
 
 Or install per-project:
 
 ```bash
-npm install ytauto
+npm install @ytauto/ytauto
 npx ytauto install
 ```
 
