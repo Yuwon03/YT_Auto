@@ -1,42 +1,34 @@
 # YTAuto
 
-BMAD-style skills for YouTube idea, story, transcript, and TTS workflows.
+CLI installer for YTAuto agent skills.
+
+YTAuto installs a small set of Codex/Cursor-friendly skills for YouTube idea collection, brainstorming, story writing, transcript creation, and TTS preparation.
 
 ## Install
-
-From GitHub:
-
-```bash
-npm install -g github:<owner>/<repo>
-ytauto install
-```
-
-From npm after publishing:
 
 ```bash
 npm install -g @ytauto/ytauto
 ytauto install
 ```
 
-Or install per-project:
+`ytauto install` opens an interactive selector:
 
-```bash
-npm install @ytauto/ytauto
-npx ytauto install
-```
+- `1`: Codex only, installs skills to `.agents/skills`
+- `2`: Cursor only, creates `.cursor/rules/ytauto-skills.mdc`
+- `3`: Both Codex and Cursor
 
 ## CLI
 
-Interactive install:
+Install into the current project:
 
 ```bash
 ytauto install
 ```
 
-Non-interactive install:
+Install without prompts:
 
 ```bash
-ytauto install --all --target /path/to/project
+ytauto install --all --target /path/to/project --force
 ```
 
 List included skills:
@@ -57,8 +49,19 @@ ytauto list
 
 ## Output Directories
 
+The installer also creates these working directories in the target project:
+
 - `./online_idea`
 - `./brainstorm_idea`
 - `./story`
 - `./transcript`
 - `./tts`
+
+## Local Test
+
+From this repository:
+
+```bash
+node bin/ytauto.mjs list
+node bin/ytauto.mjs install --all --target /tmp/ytauto-test --force
+```

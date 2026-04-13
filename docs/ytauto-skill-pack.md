@@ -24,27 +24,22 @@ This project now includes BMAD-style skills for video production flow:
 2. Run recommended skill
 3. Repeat `guide` until TTS is generated
 
-## Install From GitHub
+## Install
 
-After this repository is pushed to GitHub, install directly from Git:
-
-```bash
-npm install -g github:<owner>/<repo>
-```
-
-Then install skills into the current project:
+Install the CLI from npm:
 
 ```bash
+npm install -g @ytauto/ytauto
 ytauto install
 ```
 
-Codex-only install:
+Codex-only:
 
 ```bash
 ytauto install --codex
 ```
 
-Cursor rule install:
+Cursor-only:
 
 ```bash
 ytauto install --cursor
@@ -63,18 +58,19 @@ npm login
 npm publish --access public
 ```
 
-Then install from npm:
+## Try Locally
+
+From this repository:
 
 ```bash
-npm install -g @ytauto/ytauto
-ytauto install
+node bin/ytauto.mjs list
+node bin/ytauto.mjs install
 ```
 
-Per-project npm install:
+To test install into a temporary project:
 
 ```bash
-npm install @ytauto/ytauto
-npx ytauto install
+node bin/ytauto.mjs install --all --target /tmp/ytauto-test --force
 ```
 
 ## Notes
