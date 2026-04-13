@@ -7,7 +7,7 @@ YTAuto installs a small set of Codex/Cursor-friendly skills for YouTube idea col
 ## Install
 
 ```bash
-npx ytauto install
+npx @ytauto/ytauto install
 ```
 
 This downloads the CLI and installs the default setup into the current directory:
@@ -19,7 +19,7 @@ This downloads the CLI and installs the default setup into the current directory
 To install the CLI globally:
 
 ```bash
-npm install -g ytauto
+npm install -g @ytauto/ytauto
 ```
 
 The setup selector supports Space-based multi-select:
@@ -91,4 +91,4 @@ Use npm Trusted Publisher with these settings:
 
 Then publish from GitHub Actions by creating a GitHub release or manually running the `Publish to npm` workflow.
 
-The npm package name for this CLI is `ytauto`.
+The npm package name for this CLI is `@ytauto/ytauto`.

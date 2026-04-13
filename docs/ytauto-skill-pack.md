@@ -29,7 +29,7 @@ This project now includes BMAD-style skills for video production flow:
 Install the CLI from npm:
 
 ```bash
-npx ytauto install
+npx @ytauto/ytauto install
 ```
 
 This downloads the CLI and installs the default setup into the current directory. Run `ytauto install` later to reconfigure with Space-based multi-select after global install.

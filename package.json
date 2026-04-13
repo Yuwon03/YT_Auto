@@ -1,5 +1,5 @@
 {
-  "name": "ytauto",
+  "name": "@ytauto/ytauto",
   "version": "0.1.2",
   "description": "BMAD-style skills for YouTube idea, story, transcript, and TTS workflows.",
   "type": "module",
