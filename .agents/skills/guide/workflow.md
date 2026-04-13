@@ -1,12 +1,16 @@
 # guide Workflow
 
-Goal: Recommend next skill from current project state and user prompt.
+Goal: Provide state-aware next-step guidance with clear reasons and immediate commands.
 
-Read contract: `../ytauto-common/output-contract.md`
+Read first:
 
-## State Check
+- `../ytauto-common/output-contract.md`
+- `./checklist.md`
+- `./template.md`
 
-Inspect latest files from:
+## State scan
+
+Inspect latest artifacts in:
 
 - `./online_idea`
 - `./brainstorm_idea`
@@ -14,26 +18,35 @@ Inspect latest files from:
 - `./transcript`
 - `./tts`
 
-## Recommendation Logic
+Also inspect optional quality artifacts:
 
-1. If no online idea exists:
-   - recommend `idea_fetch_online`
+- `./story/*quality*`
+- `./story/*image-plan*`
+
+## Recommendation logic
+
+1. If no online idea artifact:
+   - primary: `idea_fetch_online`
 2. If online idea exists but no brainstorm:
-   - recommend `brainstorm`
+   - primary: `brainstorm`
 3. If brainstorm exists but no story:
-   - recommend `story_creation`
-4. If story exists and user asks changes:
-   - recommend `story_edit`
-5. If story exists and no transcript:
-   - recommend `transcript_creation`
-6. If transcript exists and no tts:
-   - recommend `tts_creation`
-7. If tts exists:
-   - recommend review/export step and optional re-run from `story_edit` for iteration
+   - primary: `story_creation`
+4. If story exists and user requests changes:
+   - primary: `story_edit`
+5. If story exists but transcript missing:
+   - primary: `transcript_creation`
+6. If transcript exists but tts missing:
+   - primary: `tts_creation`
+7. If story exists but image plan missing:
+   - suggest `image_plan`
+8. If draft quality is uncertain:
+   - suggest `quality_gate`
+9. If all core outputs exist:
+   - suggest iteration entrypoint (`story_edit` or `quality_gate`)
 
-## Response Format
+## Response format
 
-- `현재 상태`
-- `다음 추천 skill 1순위`
-- `대안 skill 2개`
-- `바로 실행용 입력 예시`
+- Current state summary
+- Primary recommended skill with reason
+- Two alternative skills with tradeoff
+- Copy-pastable next command

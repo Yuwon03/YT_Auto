@@ -1,6 +1,6 @@
 ---
 name: guide
-description: 'Recommend next best skill based on current files and user goal. Acts like a lightweight workflow navigator.'
+description: 'Recommend the next best YTAuto skill from current artifact state and user goal. Use when user asks what to do next.'
 ---
 
 Follow the instructions in `./workflow.md`.

@@ -1,36 +1,40 @@
 # transcript_creation Workflow
 
-Goal: Convert story text into TTS-ready narration transcript.
+Goal: Convert story draft into narration-ready transcript assets.
 
-Read contract: `../ytauto-common/output-contract.md`
+Read first:
 
-## Required Input
+- `../ytauto-common/output-contract.md`
+- `./checklist.md`
+- `./template.md`
 
-- One story file path from `./story`.
+## Required input
 
-## Steps
+- One story markdown file from `./story`
 
-1. Read story and split into narration segments.
-2. Normalize to spoken style:
-   - short/clear sentences
-   - avoid punctuation overload
-   - preserve tone
-3. Ask user for transcript style:
+## Execution steps
+
+1. Parse story into narration units.
+2. Normalize text for speech clarity:
+   - simplify sentence length
+   - preserve narrative intent
+   - remove punctuation patterns that break TTS
+3. Apply selected narration style:
    - cinematic
-   - calm sleep narration
-   - neutral documentary
-4. Save outputs.
+   - calm_sleep
+   - neutral
+4. Emit plain transcript and segment CSV.
+5. Save artifacts.
 
-## Output Files
+## Quality gate before save
+
+- No segment should exceed practical TTS limits for target runtime.
+- Segment order must preserve story sequence.
+- Pause values must exist for every row.
+
+## Output files
 
 - `./transcript/{timestamp}.txt`
 - `./transcript/{timestamp}.segments.csv`
 
-`{timestamp}` format: `YYYYMMDD-HHMMSS`
-
-## CSV Columns
-
-- `segment_id`
-- `text`
-- `pause_ms`
-- `note`
+Timestamp format: `YYYYMMDD-HHMMSS`

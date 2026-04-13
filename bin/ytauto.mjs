@@ -23,6 +23,8 @@ const skillNames = [
   "brainstorm",
   "story_creation",
   "story_edit",
+  "quality_gate",
+  "image_plan",
   "transcript_creation",
   "tts_creation",
   "guide",
@@ -285,15 +287,22 @@ Default output directories:
 - \`./transcript\`
 - \`./tts\`
 
+Optional artifacts in \`./story\`:
+
+- \`*-quality-report.md|json\`
+- \`*-image-plan.md|json\`
+
 Recommended flow:
 
 1. \`guide\`
 2. \`idea_fetch_online\`
 3. \`brainstorm\`
 4. \`story_creation\`
-5. \`story_edit\` when user asks for revision
-6. \`transcript_creation\`
-7. \`tts_creation\`
+5. \`quality_gate\`
+6. \`image_plan\`
+7. \`story_edit\` when user asks for revision
+8. \`transcript_creation\`
+9. \`tts_creation\`
 `;
 
   const rulePath = join(rulesRoot, "ytauto-skills.mdc");

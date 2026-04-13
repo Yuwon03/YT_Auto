@@ -1,60 +1,51 @@
 # brainstorm Workflow
 
-Goal: Convert trend signals into a clear story direction for one video.
+Goal: Convert trend signals into one chosen narrative direction for a single video unit.
 
-Read contract: `../ytauto-common/output-contract.md`
+Read first:
 
-## Steps
+- `../ytauto-common/output-contract.md`
+- `./checklist.md`
+- `./template.md`
 
-1. Ask whether to reference `./online_idea` files.
-2. If yes, ask user to pick one or more files and extract key signals.
-3. Run guided questions:
-   - what conflict to focus on
-   - what emotion to leave with listener
-   - what to avoid
-   - where to place twist
-   - what unresolved question to carry
-4. Propose 3-5 narrative directions with different tone/structure.
-5. User selects one direction and requests edits.
-6. Freeze selected concept and save outputs.
+## On activation
 
-## Output Files
+1. Confirm whether `./online_idea` references will be used.
+2. If references are used, collect selected file paths explicitly.
+3. Confirm desired story mode:
+   - sleep-fable
+   - cinematic
+   - reflective
+
+## Guided discovery prompts
+
+- Core conflict to foreground
+- Audience emotion to leave at ending
+- Forbidden elements (tone, content, cliches)
+- Twist timing (early/mid/late)
+- Unresolved thread for continuation
+
+## Execution steps
+
+1. Synthesize constraints and references.
+2. Produce 3-5 narrative directions with clear differentiation.
+3. Score each direction for:
+   - coherence
+   - novelty
+   - production feasibility
+4. Ask user to choose one direction.
+5. Apply one revision pass if user requests.
+6. Save artifacts.
+
+## Quality gate before save
+
+- Final direction must include conflict, reveal path, ending state.
+- Any sensitive real-world topic must be abstracted to fictional context.
+- Chosen direction must include at least one unresolved continuation hook.
+
+## Output files
 
 - `./brainstorm_idea/{timestamp}.md`
 - `./brainstorm_idea/{timestamp}.json`
 
-`{timestamp}` format: `YYYYMMDD-HHMMSS`
-
-## Markdown Output Template
-
-```md
-# Brainstorm Idea
-
-## References
-- online_idea_files:
-
-## Guided Answers
-- conflict:
-- target_emotion:
-- avoid_list:
-- twist_timing:
-- unresolved_question:
-
-## Candidate Directions
-1. title:
-   - concept:
-   - strengths:
-   - risks:
-
-## Final Selection
-- selected_direction:
-- revision_notes:
-```
-
-## JSON Output Keys
-
-- `created_at`
-- `references`
-- `guided_answers`
-- `candidate_directions[]`
-- `selected_direction`
+Timestamp format: `YYYYMMDD-HHMMSS`

@@ -1,41 +1,47 @@
 # story_edit Workflow
 
-Goal: Refine story detail and direction through user instructions.
+Goal: Apply directed story revisions while preserving narrative continuity.
 
-Read contract: `../ytauto-common/output-contract.md`
+Read first:
 
-## Required Input
+- `../ytauto-common/output-contract.md`
+- `./checklist.md`
+- `./template.md`
 
-- Existing story file path from `./story`.
-- User edit instructions (tone/pace/scene changes/dialogue constraints/etc.).
+## Required input
 
-## Steps
+- Existing story file from `./story`
+- User edit directives (tone, scope, constraints)
 
-1. Parse user edits into explicit change list.
-2. Confirm non-negotiables and allowed rewrite scope.
-3. Apply edits while preserving continuity.
-4. Produce revised version plus edit log.
-5. Save outputs.
+## Preflight checks
 
-## Output Files
+1. Parse directives into atomic change requests.
+2. Classify each request:
+   - mandatory
+   - optional
+   - conflict-risk
+3. Confirm rewrite scope with user before editing.
+
+## Execution steps
+
+1. Apply mandatory edits.
+2. Apply optional edits that do not break continuity.
+3. Re-run consistency checks:
+   - character logic
+   - timeline
+   - thematic alignment
+4. Generate edit log with accepted/rejected items.
+5. Save artifacts.
+
+## Quality gate before save
+
+- No unresolved contradictory statements across scenes.
+- Rejected edits must include explicit reason.
+- If scope exceeds safe rewrite boundary, mark `needs_review`.
+
+## Output files
 
 - `./story/{timestamp}-rev.md`
 - `./story/{timestamp}-edit-log.md`
 
-`{timestamp}` format: `YYYYMMDD-HHMMSS`
-
-## Edit Log Template
-
-```md
-# Story Edit Log
-
-## Source
-- input_file:
-
-## Applied Changes
-- [section] before -> after
-
-## Deferred / Rejected
-- item:
-  - reason:
-```
+Timestamp format: `YYYYMMDD-HHMMSS`

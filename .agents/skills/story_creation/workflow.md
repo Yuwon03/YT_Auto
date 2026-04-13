@@ -1,47 +1,50 @@
 # story_creation Workflow
 
-Goal: Generate the base long-form story for one video.
+Goal: Produce a complete story draft and scene map from selected brainstorming output.
 
-Read contract: `../ytauto-common/output-contract.md`
+Read first:
 
-## Required Input
+- `../ytauto-common/output-contract.md`
+- `./checklist.md`
+- `./template.md`
 
-- One selected brainstorm file from `./brainstorm_idea`.
+## Required input
 
-## Steps
+- Exactly one brainstorm artifact path from `./brainstorm_idea`
 
-1. Read selected brainstorm file.
-2. Confirm target format with user:
-   - narration tone
-   - pacing
-   - estimated length
-3. Build story architecture:
+## Preflight checks
+
+1. Verify brainstorm file exists and is readable.
+2. Verify chosen direction and constraints are explicit.
+3. Confirm target runtime bracket:
+   - short (8-12 min)
+   - medium (15-25 min)
+   - long (30-45 min)
+
+## Execution steps
+
+1. Build story architecture:
    - opening hook
-   - progression beats
-   - twist reveal path
-   - ending with unresolved thread
-4. Write full draft.
-5. Save outputs.
+   - escalation beats
+   - reveal mechanics
+   - unresolved ending hook
+2. Generate scene map first.
+3. Draft full story aligned to scene map.
+4. Run continuity pass:
+   - character motivation consistency
+   - timeline consistency
+   - tone consistency
+5. Save artifacts.
 
-## Output Files
+## Quality gate before save
+
+- Each scene must have purpose and state change.
+- Reveal sequence must be causal, not random.
+- Ending must not hard-reset conflict without narrative cause.
+
+## Output files
 
 - `./story/{timestamp}.md`
 - `./story/{timestamp}.scene-map.md`
 
-`{timestamp}` format: `YYYYMMDD-HHMMSS`
-
-## Story Rules
-
-- Keep result original (no direct adaptation).
-- Keep continuity with selected brainstorm.
-- Keep conflict depth and ambiguity when requested by user.
-
-## Scene Map Template
-
-```md
-# Scene Map
-1. Scene title
-   - purpose
-   - conflict shift
-   - emotional target
-```
+Timestamp format: `YYYYMMDD-HHMMSS`

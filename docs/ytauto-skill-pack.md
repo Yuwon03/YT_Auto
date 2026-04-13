@@ -6,9 +6,11 @@ This project now includes BMAD-style skills for video production flow:
 2. `brainstorm`
 3. `story_creation`
 4. `story_edit`
-5. `transcript_creation`
-6. `tts_creation`
-7. `guide`
+5. `quality_gate`
+6. `image_plan`
+7. `transcript_creation`
+8. `tts_creation`
+9. `guide`
 
 ## Default Output Paths
 

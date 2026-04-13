@@ -1,7 +1,7 @@
 {
   "name": "@ytauto/ytauto",
   "version": "0.1.3",
-  "description": "BMAD-style skills for YouTube idea, story, transcript, and TTS workflows.",
+  "description": "BMAD-style skills for YouTube idea, story, quality, image planning, transcript, and TTS workflows.",
   "type": "module",
   "repository": {
     "type": "git",
@@ -21,6 +21,8 @@
     ".agents/skills/brainstorm/",
     ".agents/skills/story_creation/",
     ".agents/skills/story_edit/",
+    ".agents/skills/quality_gate/",
+    ".agents/skills/image_plan/",
     ".agents/skills/transcript_creation/",
     ".agents/skills/tts_creation/",
     ".agents/skills/guide/",

@@ -2,7 +2,7 @@
 
 CLI installer for YTAuto agent skills.
 
-YTAuto installs a small set of Codex/Cursor-friendly skills for YouTube idea collection, brainstorming, story writing, transcript creation, and TTS preparation.
+YTAuto installs a BMAD-style skill pack for YouTube workflows: trend collection, guided brainstorming, story writing, quality checks, image planning, transcript creation, and TTS preparation.
 
 ## Install
 
@@ -56,6 +56,8 @@ ytauto list
 - `brainstorm`
 - `story_creation`
 - `story_edit`
+- `quality_gate`
+- `image_plan`
 - `transcript_creation`
 - `tts_creation`
 - `guide`

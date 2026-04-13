@@ -1,41 +1,49 @@
 # tts_creation Workflow
 
-Goal: Produce narration audio from transcript.
+Goal: Produce voice output package from transcript input.
 
-Read contract: `../ytauto-common/output-contract.md`
+Read first:
 
-## Required Input
+- `../ytauto-common/output-contract.md`
+- `./checklist.md`
+- `./template.md`
 
-- One transcript file path from `./transcript`.
+## Required input
 
-## Steps
+- Transcript text or segment CSV from `./transcript`
 
-1. Confirm voice settings with user:
+## Execution steps
+
+1. Confirm voice profile:
+   - provider
    - voice id
-   - speaking rate
+   - rate
    - pitch
-2. Attempt audio generation using available TTS runtime.
-3. If runtime is unavailable, stop generation and write a clear request file.
-4. Save outputs.
+2. Run TTS generation.
+3. If runtime/provider is unavailable:
+   - generate fallback request doc
+   - set output status to `runtime_missing`
+4. If generation succeeds:
+   - verify output file exists and non-zero size
+   - set output status to `ok`
+5. Save artifacts.
 
-## Output Files
+## Quality gate before save
 
-When audio generation succeeds:
+- Metadata json must include source transcript path.
+- Failure case must be actionable, not generic.
+- Success case must include output duration estimate when available.
+
+## Output files
+
+Success:
+
 - `./tts/{timestamp}.mp3`
 - `./tts/{timestamp}.json`
 
-When audio generation fails due to environment/runtime:
+Runtime missing:
+
 - `./tts/{timestamp}.tts-request.md`
 - `./tts/{timestamp}.json`
 
-`{timestamp}` format: `YYYYMMDD-HHMMSS`
-
-## JSON Keys
-
-- `created_at`
-- `input_transcript`
-- `voice`
-- `rate`
-- `pitch`
-- `status` (`ok` or `runtime_missing`)
-- `output_audio` (nullable)
+Timestamp format: `YYYYMMDD-HHMMSS`
