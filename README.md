@@ -8,10 +8,15 @@ YTAuto installs a small set of Codex/Cursor-friendly skills for YouTube idea col
 
 ```bash
 npm install -g @ytauto/ytauto
+```
+
+When npm provides an interactive terminal, the installer asks whether to configure YTAuto skills immediately. If the prompt does not appear, run:
+
+```bash
 ytauto install
 ```
 
-`ytauto install` opens an interactive selector:
+The setup selector offers:
 
 - `1`: Codex only, installs skills to `.agents/skills`
 - `2`: Cursor only, creates `.cursor/rules/ytauto-skills.mdc`

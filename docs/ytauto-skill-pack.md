@@ -30,8 +30,9 @@ Install the CLI from npm:
 
 ```bash
 npm install -g @ytauto/ytauto
-ytauto install
 ```
+
+When npm provides an interactive terminal, the installer asks whether to configure YTAuto skills immediately. If no prompt appears, run `ytauto install`.
 
 Codex-only:
 

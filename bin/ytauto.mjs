@@ -214,20 +214,7 @@ function ensureOutputDirs(target) {
   }
 }
 
-try {
-  const args = await askInstallOptions(parseArgs(process.argv));
-  if (args.command === "help" || args.command === "--help" || args.command === "-h") {
-    usage();
-    process.exit(0);
-  }
-  if (args.command === "list") {
-    for (const skillName of skillNames) console.log(skillName);
-    process.exit(0);
-  }
-  if (args.command !== "install") {
-    throw new Error(`Unknown command: ${args.command}`);
-  }
-
+function executeInstall(args) {
   const target = resolve(args.target);
   ensureOutputDirs(target);
   if (args.codex) {
@@ -239,6 +226,58 @@ try {
     console.log(`Installed Cursor rule: ${rulePath}`);
   }
   console.log("Done.");
+}
+
+async function runPostinstall() {
+  const target = process.env.INIT_CWD || process.cwd();
+  if (!input.isTTY || process.env.CI) {
+    console.log("YTAuto CLI installed.");
+    console.log(`Run "ytauto install" from your project directory to install skills.`);
+    return;
+  }
+
+  const rl = createInterface({ input, output });
+  try {
+    const answer = (await rl.question(`Configure YTAuto skills now in ${target}? [Y/n]: `)).trim().toLowerCase();
+    if (answer === "n" || answer === "no") {
+      console.log(`Skipped. Run "ytauto install" when ready.`);
+      return;
+    }
+  } finally {
+    rl.close();
+  }
+
+  const args = await askInstallOptions({
+    command: "install",
+    codex: false,
+    cursor: false,
+    target,
+    force: false,
+    yes: false,
+    hasInstallTargetFlag: false,
+  });
+  executeInstall(args);
+}
+
+try {
+  const args = await askInstallOptions(parseArgs(process.argv));
+  if (args.command === "help" || args.command === "--help" || args.command === "-h") {
+    usage();
+    process.exit(0);
+  }
+  if (args.command === "list") {
+    for (const skillName of skillNames) console.log(skillName);
+    process.exit(0);
+  }
+  if (args.command === "postinstall") {
+    await runPostinstall();
+    process.exit(0);
+  }
+  if (args.command !== "install") {
+    throw new Error(`Unknown command: ${args.command}`);
+  }
+
+  executeInstall(args);
 } catch (error) {
   console.error(`Error: ${error.message}`);
   process.exit(1);

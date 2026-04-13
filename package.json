@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/Yuwon03/YT_Auto.git"
   },
+  "scripts": {
+    "postinstall": "node ./bin/ytauto.mjs postinstall"
+  },
   "bin": {
     "ytauto": "./bin/ytauto.mjs",
     "ytauto-skills": "./bin/ytauto.mjs"
