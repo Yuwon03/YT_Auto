@@ -6,32 +6,52 @@
 - source_skill: idea_fetch_online
 - input_refs:
 - status:
+- run_id:
+- step_id: idea_fetch_online
+- upstream_refs:
+- handoff_ready:
+- handoff_notes:
+- source_collection_path: web_search|external_api|manual_input
+- source_collection_notes:
 
-## User Context
+## Upstream Concept Context
+
+- brainstorm_path:
+- concept_summary:
+- duration_target:
+- audience_profile:
+- world_setting:
+
+## Query Strategy
 
 - mode:
-- target_domain:
-- target_audience:
 - selected_keywords:
+- search_constraints:
 
-## Source Signals
+## Citations
 
-1. source:
-   - link_or_id:
-   - signal:
-   - confidence:
+1. citation_id:
+   - source_name:
+   - link_or_identifier:
+   - relevance:
+   - reliability_note:
+   - fact_inference_speculation:
 
-## Candidate Angles
+## User Reference Edits
 
-1. title:
-   - hook:
-   - audience_emotion:
-   - why_now:
-   - caution:
-   - support_refs:
+1. action_id:
+   - action_type: append|edit|delete
+   - target_citation_id:
+   - detail:
 
-## User Decisions
+## Final Reference Set
 
-- keep:
-- revise:
-- reject:
+1. citation_id:
+   - accepted: true|false
+   - keep_reason:
+
+## Conversation Summary
+
+- key_user_requests:
+- key_ai_responses:
+- unresolved_questions:

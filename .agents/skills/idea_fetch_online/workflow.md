@@ -1,6 +1,6 @@
 # idea_fetch_online Workflow
 
-Goal: Build source-backed, trend-aware idea seeds with explicit user decisions.
+Goal: Enrich one selected brainstorm concept with online citations and editable references in a single consolidated file.
 
 Read first:
 
@@ -10,42 +10,46 @@ Read first:
 
 ## On activation
 
-1. Confirm target domain and audience in one sentence each.
-2. Ask mode:
+1. Require exactly one brainstorm artifact path from `./brainstorm_idea`.
+2. Verify selected brainstorm artifact has `handoff_ready=true`.
+3. Confirm `run_id` and keep same pipeline id.
+4. Ask mode:
    - `ai_suggest`
    - `user_keywords`
    - `mixed`
-3. Require at least one verifiable source input path:
+5. Confirm source collection path:
+   - `web_search` (live browsing/search tools)
+   - `external_api` (user-provided API integration)
+   - `manual_input` (user-supplied references only)
+6. Require at least one verifiable source input path:
    - live links
    - source names with searchable identifiers
    - user provided summaries marked as `manual_input`
 
 ## Execution steps
 
-1. Collect or generate keyword candidates (5-8).
-2. Have user keep 1-3 final keywords.
-3. Gather source signals per keyword.
-4. Generate candidate angles (5-10) with:
-   - hook
-   - audience emotion target
-   - why-now rationale
-   - copyright/safety caution
-5. Ask user to classify each angle:
-   - `keep`
-   - `revise`
-   - `reject`
-6. If `keep` count is zero, loop once with revised constraints.
-7. Save artifacts.
+1. Extract query keywords from brainstorm concept attributes.
+2. Gather 3-8 citations aligned to selected concept and duration target.
+3. Normalize each citation with:
+   - title/source
+   - link_or_identifier
+   - relevance to concept
+   - reliability note
+4. Present references to user and allow edit/append/delete.
+5. Record user modifications and final accepted reference list.
+6. If web/API access is unavailable, continue in `manual_input` mode and mark the limitation in metadata.
+7. Set `handoff_ready=true` only when at least 3 usable citations remain after user edits.
+8. Save one consolidated artifact.
 
 ## Quality gate before save
 
-- Each kept angle must map to at least one source signal.
+- Each citation must map to at least one concept element from brainstorm output.
 - Remove unsupported trend claims.
 - Keep explicit distinction between fact, inference, and speculation.
+- Include conversation summary of user edits/appends in same file.
 
 ## Output files
 
 - `./online_idea/{timestamp}.md`
-- `./online_idea/{timestamp}.json`
 
 Timestamp format: `YYYYMMDD-HHMMSS`

@@ -6,6 +6,11 @@
 - source_skill: guide
 - input_refs:
 - status:
+- run_id:
+- step_id: guide
+- upstream_refs:
+- handoff_ready:
+- handoff_notes:
 
 ## State Snapshot
 
@@ -23,10 +28,14 @@
 - reason:
 - next_command:
 
+## Completion
+
+- pipeline_success:
+- blocking_gaps:
+
 ## Alternatives
 
 1. skill:
    - tradeoff:
 2. skill:
    - tradeoff:
-

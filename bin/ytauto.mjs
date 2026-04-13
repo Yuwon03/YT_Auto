@@ -295,14 +295,14 @@ Optional artifacts in \`./story\`:
 Recommended flow:
 
 1. \`guide\`
-2. \`idea_fetch_online\`
-3. \`brainstorm\`
+2. \`brainstorm\`
+3. \`idea_fetch_online\`
 4. \`story_creation\`
 5. \`quality_gate\`
 6. \`image_plan\`
 7. \`story_edit\` when user asks for revision
 8. \`transcript_creation\`
-9. \`tts_creation\`
+9. \`tts_creation\` (edge-tts, Microsoft Neural Voice)
 `;
 
   const rulePath = join(rulesRoot, "ytauto-skills.mdc");

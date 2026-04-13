@@ -12,21 +12,28 @@ Read first:
 
 - Transcript text or segment CSV from `./transcript`
 
+## Preflight checks
+
+1. Verify transcript source exists and is readable.
+2. Verify transcript artifact metadata includes `handoff_ready=true` when available.
+3. Confirm `run_id` and keep same pipeline id.
+
 ## Execution steps
 
 1. Confirm voice profile:
-   - provider
-   - voice id
+   - provider: `edge-tts`
+   - voice id: Microsoft Neural Voice id (for example `en-US-JennyNeural`)
    - rate
    - pitch
-2. Run TTS generation.
+2. Run TTS generation with `edge-tts`.
 3. If runtime/provider is unavailable:
-   - generate fallback request doc
+   - generate fallback request doc with `edge-tts` install/run guidance
    - set output status to `runtime_missing`
 4. If generation succeeds:
    - verify output file exists and non-zero size
    - set output status to `ok`
-5. Save artifacts.
+5. Set `handoff_ready=true` only when output package is complete for selected path.
+6. Save artifacts.
 
 ## Quality gate before save
 

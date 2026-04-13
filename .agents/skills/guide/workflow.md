@@ -23,13 +23,18 @@ Also inspect optional quality artifacts:
 - `./story/*quality*`
 - `./story/*image-plan*`
 
+Check handoff completeness for latest artifacts:
+
+- required metadata keys exist (`run_id`, `step_id`, `handoff_ready`)
+- required file sets exist for each step
+
 ## Recommendation logic
 
-1. If no online idea artifact:
-   - primary: `idea_fetch_online`
-2. If online idea exists but no brainstorm:
+1. If no brainstorm artifact:
    - primary: `brainstorm`
-3. If brainstorm exists but no story:
+2. If brainstorm exists but no online idea artifact:
+   - primary: `idea_fetch_online`
+3. If story is missing but brainstorm and online idea are ready:
    - primary: `story_creation`
 4. If story exists and user requests changes:
    - primary: `story_edit`
@@ -41,7 +46,9 @@ Also inspect optional quality artifacts:
    - suggest `image_plan`
 8. If draft quality is uncertain:
    - suggest `quality_gate`
-9. If all core outputs exist:
+9. If all core outputs exist but any `handoff_ready=false`:
+   - primary: `quality_gate` or producing step retry
+10. If all core outputs exist:
    - suggest iteration entrypoint (`story_edit` or `quality_gate`)
 
 ## Response format
@@ -50,3 +57,5 @@ Also inspect optional quality artifacts:
 - Primary recommended skill with reason
 - Two alternative skills with tradeoff
 - Copy-pastable next command
+- Pipeline completion check:
+  - `success=true` only if final TTS package exists and latest quality decision is `ready` (if quality gate was run)

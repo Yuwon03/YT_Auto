@@ -1,6 +1,6 @@
 {
   "name": "@ytauto/ytauto",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "BMAD-style skills for YouTube idea, story, quality, image planning, transcript, and TTS workflows.",
   "type": "module",
   "repository": {

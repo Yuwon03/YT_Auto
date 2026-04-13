@@ -6,6 +6,11 @@
 - source_skill: transcript_creation
 - input_refs:
 - status:
+- run_id:
+- step_id: transcript_creation
+- upstream_refs:
+- handoff_ready:
+- handoff_notes:
 
 ## Input
 
@@ -32,4 +37,3 @@
 - transcript_path:
 - segments_csv_path:
 - total_estimated_seconds:
-

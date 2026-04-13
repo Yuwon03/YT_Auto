@@ -6,12 +6,19 @@
 - source_skill: story_creation
 - input_refs:
 - status:
+- run_id:
+- step_id: story_creation
+- upstream_refs:
+- handoff_ready:
+- handoff_notes:
 
 ## Input Summary
 
 - brainstorm_path:
+- online_reference_path:
 - runtime_bracket:
 - fixed_constraints:
+- concretization_notes:
 
 ## Story Architecture
 
@@ -34,4 +41,3 @@
 - character_logic:
 - timeline_logic:
 - tone_consistency:
-

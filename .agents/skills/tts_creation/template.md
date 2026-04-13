@@ -6,12 +6,17 @@
 - source_skill: tts_creation
 - input_refs:
 - status:
+- run_id:
+- step_id: tts_creation
+- upstream_refs:
+- handoff_ready:
+- handoff_notes:
 
 ## TTS Input
 
 - transcript_path:
-- provider:
-- voice_id:
+- provider: edge-tts
+- voice_id: Microsoft Neural Voice id
 - rate:
 - pitch:
 
@@ -22,4 +27,3 @@
 - metadata_path:
 - estimated_duration_seconds:
 - fallback_action:
-

@@ -12,6 +12,12 @@ Read first:
 
 - One story markdown file from `./story`
 
+## Preflight checks
+
+1. Verify story file exists and is readable.
+2. Verify story artifact metadata includes `handoff_ready=true` when available.
+3. Confirm `run_id` and keep same pipeline id.
+
 ## Execution steps
 
 1. Parse story into narration units.
@@ -24,7 +30,8 @@ Read first:
    - calm_sleep
    - neutral
 4. Emit plain transcript and segment CSV.
-5. Save artifacts.
+5. Set `handoff_ready=true` only when transcript text + segment csv are both complete.
+6. Save artifacts.
 
 ## Quality gate before save
 

@@ -13,6 +13,12 @@ Read first:
 - One story file from `./story`
 - Optional quality report from `quality_gate`
 
+## Preflight checks
+
+1. Verify story file exists and is readable.
+2. Verify story artifact metadata includes `handoff_ready=true` when available.
+3. Confirm `run_id` and keep same pipeline id.
+
 ## Source policy
 
 - Prefer public domain or permissive licenses.
@@ -28,7 +34,8 @@ Read first:
    - source candidates (at least 2)
    - usage/license notes
 3. Flag slots with insufficient safe sources as `needs_review`.
-4. Save artifacts.
+4. Set `handoff_ready=true` only when all required slots have usable candidates.
+5. Save artifacts.
 
 ## Quality gate before save
 

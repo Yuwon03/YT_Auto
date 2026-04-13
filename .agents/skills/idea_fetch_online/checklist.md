@@ -1,8 +1,12 @@
 # idea_fetch_online Checklist
 
 - Target domain and audience are explicit.
-- Final keyword set has 1-3 items.
-- Each kept angle has at least one source signal.
+- Source collection path is explicit (`web_search`, `external_api`, or `manual_input`).
+- `run_id` is explicit and consistent with pipeline context.
+- One upstream brainstorm artifact is selected and `handoff_ready=true`.
+- Citation list has at least 3 usable references.
+- Each citation maps to brainstorm concept attributes.
 - Unsupported claims are removed or marked as speculation.
-- Output markdown and json files are both written.
-- Metadata block exists (`created_at`, `source_skill`, `input_refs`, `status`).
+- User edit/append actions for references are recorded.
+- One consolidated markdown output file is written.
+- Metadata block includes lineage and handoff fields (`run_id`, `upstream_refs`, `handoff_ready`, `handoff_notes`).

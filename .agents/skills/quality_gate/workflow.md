@@ -15,6 +15,12 @@ Read first:
   - `./transcript/*.txt` or `./transcript/*.segments.csv`
   - `./tts/*.json`
 
+## Preflight checks
+
+1. Confirm `run_id` from target artifacts when available.
+2. Verify target files exist and are readable.
+3. Record whether upstream artifacts were `handoff_ready` at execution time.
+
 ## Gate profile
 
 1. Detect target type (`story`, `transcript`, `tts`, or mixed).
@@ -35,7 +41,8 @@ Read first:
 4. Set overall status:
    - `ready` if no `fail`
    - `needs_review` if any `fail`
-5. Save report.
+5. Set `handoff_ready=true` only when overall status is `ready`.
+6. Save report.
 
 ## Output files
 

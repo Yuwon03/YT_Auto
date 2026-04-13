@@ -16,11 +16,18 @@ Read first:
 ## Preflight checks
 
 1. Parse directives into atomic change requests.
-2. Classify each request:
+2. Confirm source story artifact is `handoff_ready=true` when available.
+3. Confirm `run_id` and keep same pipeline id.
+4. Classify each request:
    - mandatory
    - optional
    - conflict-risk
-3. Confirm rewrite scope with user before editing.
+5. Confirm rewrite scope with user before editing.
+6. Run an AI-user concretization round for edits:
+   - target emotional change
+   - pace changes
+   - reveal adjustments
+   - boundaries to preserve
 
 ## Execution steps
 
@@ -31,7 +38,8 @@ Read first:
    - timeline
    - thematic alignment
 4. Generate edit log with accepted/rejected items.
-5. Save artifacts.
+5. Set `handoff_ready=true` only when revised story has no blocking contradictions.
+6. Save artifacts.
 
 ## Quality gate before save
 

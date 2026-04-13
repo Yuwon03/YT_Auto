@@ -2,7 +2,7 @@
 
 CLI installer for YTAuto agent skills.
 
-YTAuto installs a BMAD-style skill pack for YouTube workflows: trend collection, guided brainstorming, story writing, quality checks, image planning, transcript creation, and TTS preparation.
+YTAuto installs a BMAD-style skill pack for YouTube workflows: guided brainstorming, citation enrichment, story writing, quality checks, image planning, transcript creation, and edge-tts preparation.
 
 ## Install
 
@@ -62,6 +62,34 @@ ytauto list
 - `tts_creation`
 - `guide`
 
+## Logical Flow
+
+Use one shared `run_id` through the pipeline so every step can reuse upstream artifacts naturally.
+
+1. `brainstorm`
+2. `idea_fetch_online`
+3. `story_creation`
+4. `story_edit` (optional revision loop)
+5. `quality_gate` (recommended before transcript)
+6. `image_plan` (optional visual sourcing)
+7. `transcript_creation`
+8. `tts_creation` (`edge-tts`, Microsoft Neural Voice)
+9. `quality_gate` (final readiness check)
+
+Each generated artifact should include:
+
+- `run_id`
+- `step_id`
+- `upstream_refs`
+- `handoff_ready`
+- `handoff_notes`
+
+Final outcome is considered successful when:
+
+- TTS output package exists (`.mp3` + `.json`, or actionable runtime-missing package)
+- latest quality decision is `ready`
+- no blocking `handoff_ready=false` artifacts remain in the active run
+
 ## Output Directories
 
 The installer also creates these working directories in the target project:
@@ -71,6 +99,10 @@ The installer also creates these working directories in the target project:
 - `./story`
 - `./transcript`
 - `./tts`
+
+`idea_fetch_online` writes one consolidated reference artifact in `./online_idea`:
+
+- `{timestamp}.md`
 
 ## Local Test
 

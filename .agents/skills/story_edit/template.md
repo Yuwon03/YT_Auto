@@ -6,12 +6,18 @@
 - source_skill: story_edit
 - input_refs:
 - status:
+- run_id:
+- step_id: story_edit
+- upstream_refs:
+- handoff_ready:
+- handoff_notes:
 
 ## Edit Scope
 
 - source_story_path:
 - requested_scope:
 - forbidden_changes:
+- concretization_notes:
 
 ## Parsed Directives
 
@@ -32,4 +38,3 @@
 - character_logic:
 - timeline_logic:
 - thematic_alignment:
-

@@ -6,6 +6,11 @@
 - source_skill: image_plan
 - input_refs:
 - status:
+- run_id:
+- step_id: image_plan
+- upstream_refs:
+- handoff_ready:
+- handoff_notes:
 
 ## Input
 
@@ -30,4 +35,3 @@
 
 - unresolved_slots:
 - acquisition_priority_order:
-
