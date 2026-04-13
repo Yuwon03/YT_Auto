@@ -70,3 +70,15 @@ From this repository:
 node bin/ytauto.mjs list
 node bin/ytauto.mjs install --all --target /tmp/ytauto-test --force
 ```
+
+## Publishing
+
+Use npm Trusted Publisher with these settings:
+
+- Publisher: `GitHub Actions`
+- Organization or user: `Yuwon03`
+- Repository: `YT_Auto`
+- Workflow filename: `publish.yml`
+- Environment name: leave blank
+
+Then publish from GitHub Actions by creating a GitHub release or manually running the `Publish to npm` workflow.
