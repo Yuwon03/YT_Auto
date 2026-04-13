@@ -11,8 +11,8 @@
     "postinstall": "node ./bin/ytauto.mjs postinstall"
   },
   "bin": {
-    "ytauto": "./bin/ytauto.mjs",
-    "ytauto-skills": "./bin/ytauto.mjs"
+    "ytauto": "bin/ytauto.mjs",
+    "ytauto-skills": "bin/ytauto.mjs"
   },
   "files": [
     "bin/",
