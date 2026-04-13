@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import readline from "node:readline";
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { dirname, join, resolve } from "node:path";
@@ -8,6 +9,14 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, "..");
+const useColor = !process.env.NO_COLOR;
+const color = {
+  blue: (value) => useColor ? `\x1b[34m${value}\x1b[0m` : value,
+  cyan: (value) => useColor ? `\x1b[36m${value}\x1b[0m` : value,
+  green: (value) => useColor ? `\x1b[32m${value}\x1b[0m` : value,
+  gray: (value) => useColor ? `\x1b[90m${value}\x1b[0m` : value,
+  bold: (value) => useColor ? `\x1b[1m${value}\x1b[0m` : value,
+};
 
 const skillNames = [
   "idea_fetch_online",
@@ -36,6 +45,30 @@ Targets:
   --all     Enable both --codex and --cursor
   --yes     Non-interactive install with --all --target .
 `);
+}
+
+function printBox(title, lines = []) {
+  const width = Math.max(52, title.length + 4, ...lines.map((line) => stripAnsi(line).length + 4));
+  const top = `┌${"─".repeat(width - 2)}┐`;
+  const bottom = `└${"─".repeat(width - 2)}┘`;
+  console.log(color.cyan(top));
+  console.log(color.cyan(`│ ${padRight(color.bold(title), width - 4)} │`));
+  if (lines.length > 0) {
+    console.log(color.cyan(`├${"─".repeat(width - 2)}┤`));
+    for (const line of lines) {
+      console.log(color.cyan("│ ") + padRight(line, width - 4) + color.cyan(" │"));
+    }
+  }
+  console.log(color.cyan(bottom));
+}
+
+function stripAnsi(value) {
+  return value.replace(/\x1b\[[0-9;]*m/g, "");
+}
+
+function padRight(value, width) {
+  const visible = stripAnsi(value).length;
+  return value + " ".repeat(Math.max(0, width - visible));
 }
 
 function parseArgs(argv) {
@@ -86,40 +119,100 @@ async function askInstallOptions(args) {
     return args;
   }
 
-  const scriptedAnswers = input.isTTY ? null : readFileSync(0, "utf8").split(/\r?\n/);
-  let scriptedAnswerIndex = 0;
-  const rl = input.isTTY ? createInterface({ input, output }) : null;
-  const ask = async (question) => {
-    if (scriptedAnswers) {
-      const answer = scriptedAnswers[scriptedAnswerIndex++] ?? "";
-      output.write(question);
-      output.write(`${answer}\n`);
-      return answer;
-    }
-    return rl.question(question);
-  };
+  if (!input.isTTY) {
+    args.codex = true;
+    args.cursor = true;
+    return args;
+  }
+
+  const rl = createInterface({ input, output });
 
   try {
-    console.log("YTAuto skill installer");
-    console.log("1) Codex only (.agents/skills)");
-    console.log("2) Cursor only (.cursor/rules)");
-    console.log("3) Both Codex and Cursor");
-    const targetChoice = (await ask("Install target [1-3, default 3]: ")).trim() || "3";
-    if (targetChoice === "1") args.codex = true;
-    else if (targetChoice === "2") args.cursor = true;
-    else {
-      args.codex = true;
-      args.cursor = true;
-    }
+    printBox("YTAuto setup", [
+      "Choose one or more integrations.",
+      `${color.gray("Use ↑/↓ to move, Space to select, Enter to continue.")}`,
+    ]);
+    const selections = await promptMultiSelect({
+      title: "Integrations",
+      options: [
+        { label: "Codex skills", detail: ".agents/skills", value: "codex" },
+        { label: "Cursor rules", detail: ".cursor/rules/ytauto-skills.mdc", value: "cursor" },
+      ],
+      defaults: ["codex", "cursor"],
+    });
+    args.codex = selections.includes("codex");
+    args.cursor = selections.includes("cursor");
 
-    const targetDir = (await ask(`Project directory [${args.target}]: `)).trim();
+    const targetDir = (await rl.question(`${color.bold("Project directory")} ${color.gray(`[${args.target}]`)}: `)).trim();
     if (targetDir) args.target = targetDir;
 
-    const forceAnswer = (await ask("Overwrite existing skill files? [y/N]: ")).trim().toLowerCase();
+    const forceAnswer = (await rl.question(`${color.bold("Overwrite existing skill files?")} ${color.gray("[y/N]")}: `)).trim().toLowerCase();
     args.force = forceAnswer === "y" || forceAnswer === "yes";
     return args;
   } finally {
     if (rl) rl.close();
+  }
+}
+
+async function promptMultiSelect({ title, options, defaults }) {
+  let cursor = 0;
+  const selected = new Set(defaults);
+
+  readline.emitKeypressEvents(input);
+  input.setRawMode(true);
+  output.write("\x1b[?25l");
+
+  const render = () => {
+    output.write("\x1b[2J\x1b[H");
+    console.log(color.bold(title));
+    console.log(color.gray("Space: select  Enter: confirm  a: all  n: none  q: cancel"));
+    console.log("");
+    options.forEach((option, index) => {
+      const pointer = index === cursor ? color.blue("›") : " ";
+      const mark = selected.has(option.value) ? color.green("●") : "○";
+      console.log(`${pointer} ${mark} ${option.label} ${color.gray(option.detail)}`);
+    });
+  };
+
+  render();
+  try {
+    return await new Promise((resolvePrompt, rejectPrompt) => {
+      const onKeypress = (_value, key) => {
+        if (key.name === "up") cursor = (cursor - 1 + options.length) % options.length;
+        else if (key.name === "down") cursor = (cursor + 1) % options.length;
+        else if (key.name === "space") {
+          const value = options[cursor].value;
+          if (selected.has(value)) selected.delete(value);
+          else selected.add(value);
+        } else if (key.name === "a") {
+          options.forEach((option) => selected.add(option.value));
+        } else if (key.name === "n") {
+          selected.clear();
+        } else if (key.name === "return") {
+          if (selected.size === 0) {
+            options.forEach((option) => selected.add(option.value));
+          }
+          cleanup();
+          resolvePrompt([...selected]);
+          return;
+        } else if ((key.ctrl && key.name === "c") || key.name === "q" || key.name === "escape") {
+          cleanup();
+          rejectPrompt(new Error("Installation cancelled."));
+          return;
+        }
+        render();
+      };
+      const cleanup = () => {
+        input.off("keypress", onKeypress);
+        input.setRawMode(false);
+        output.write("\x1b[?25h");
+        output.write("\x1b[2J\x1b[H");
+      };
+      input.on("keypress", onKeypress);
+    });
+  } finally {
+    if (input.isRaw) input.setRawMode(false);
+    output.write("\x1b[?25h");
   }
 }
 
@@ -217,22 +310,34 @@ function ensureOutputDirs(target) {
 function executeInstall(args) {
   const target = resolve(args.target);
   ensureOutputDirs(target);
+  const installed = [];
   if (args.codex) {
     const destination = installCodexSkills(target, args.force);
-    console.log(`Installed Codex skills: ${destination}`);
+    installed.push(`Codex skills → ${destination}`);
   }
   if (args.cursor) {
     const rulePath = installCursorRule(target);
-    console.log(`Installed Cursor rule: ${rulePath}`);
+    installed.push(`Cursor rule → ${rulePath}`);
   }
-  console.log("Done.");
+  printBox("YTAuto installed", [
+    `Target: ${target}`,
+    ...installed,
+    "Workspace folders → online_idea, brainstorm_idea, story, transcript, tts",
+  ]);
 }
 
 async function runPostinstall() {
   const target = process.env.INIT_CWD || process.cwd();
   if (!input.isTTY || process.env.CI) {
-    console.log("YTAuto CLI installed.");
-    console.log(`Run "ytauto install" from your project directory to install skills.`);
+    executeInstall({
+      command: "install",
+      codex: true,
+      cursor: true,
+      target,
+      force: false,
+      yes: true,
+      hasInstallTargetFlag: true,
+    });
     return;
   }
 

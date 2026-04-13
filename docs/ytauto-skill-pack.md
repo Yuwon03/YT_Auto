@@ -32,7 +32,7 @@ Install the CLI from npm:
 npm install -g @ytauto/ytauto
 ```
 
-When npm provides an interactive terminal, the installer asks whether to configure YTAuto skills immediately. If no prompt appears, run `ytauto install`.
+During installation, YTAuto installs the default setup into the directory where the command was run. Run `ytauto install` to reconfigure with Space-based multi-select.
 
 Codex-only:
 

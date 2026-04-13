@@ -10,17 +10,25 @@ YTAuto installs a small set of Codex/Cursor-friendly skills for YouTube idea col
 npm install -g @ytauto/ytauto
 ```
 
-When npm provides an interactive terminal, the installer asks whether to configure YTAuto skills immediately. If the prompt does not appear, run:
+During installation, YTAuto installs the default setup into the directory where you ran the command:
+
+- Codex skills in `.agents/skills`
+- Cursor rule in `.cursor/rules/ytauto-skills.mdc`
+- Working folders: `online_idea`, `brainstorm_idea`, `story`, `transcript`, `tts`
+
+To rerun setup or change the selection:
 
 ```bash
 ytauto install
 ```
 
-The setup selector offers:
+The setup selector supports Space-based multi-select:
 
-- `1`: Codex only, installs skills to `.agents/skills`
-- `2`: Cursor only, creates `.cursor/rules/ytauto-skills.mdc`
-- `3`: Both Codex and Cursor
+- `Space`: select or unselect
+- `Enter`: confirm
+- `a`: select all
+- `n`: select none
+- `q`: cancel
 
 ## CLI
 
