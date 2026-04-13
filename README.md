@@ -7,19 +7,19 @@ YTAuto installs a small set of Codex/Cursor-friendly skills for YouTube idea col
 ## Install
 
 ```bash
-npm install -g @ytauto/ytauto
+npx ytauto install
 ```
 
-During installation, YTAuto installs the default setup into the directory where you ran the command:
+This downloads the CLI and installs the default setup into the current directory:
 
 - Codex skills in `.agents/skills`
 - Cursor rule in `.cursor/rules/ytauto-skills.mdc`
 - Working folders: `online_idea`, `brainstorm_idea`, `story`, `transcript`, `tts`
 
-To rerun setup or change the selection:
+To install the CLI globally:
 
 ```bash
-ytauto install
+npm install -g ytauto
 ```
 
 The setup selector supports Space-based multi-select:
@@ -90,3 +90,5 @@ Use npm Trusted Publisher with these settings:
 - Environment name: leave blank
 
 Then publish from GitHub Actions by creating a GitHub release or manually running the `Publish to npm` workflow.
+
+The npm package name for this CLI is `ytauto`.
