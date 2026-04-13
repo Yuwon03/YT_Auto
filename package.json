@@ -1,0 +1,37 @@
+{
+  "name": "ytauto",
+  "version": "0.1.0",
+  "description": "BMAD-style skills for YouTube idea, story, transcript, and TTS workflows.",
+  "type": "module",
+  "bin": {
+    "ytauto": "./bin/ytauto.mjs",
+    "ytauto-skills": "./bin/ytauto.mjs"
+  },
+  "files": [
+    "bin/",
+    "docs/ytauto-skill-pack.md",
+    ".agents/skills/idea_fetch_online/",
+    ".agents/skills/brainstorm/",
+    ".agents/skills/story_creation/",
+    ".agents/skills/story_edit/",
+    ".agents/skills/transcript_creation/",
+    ".agents/skills/tts_creation/",
+    ".agents/skills/guide/",
+    ".agents/skills/ytauto-common/"
+  ],
+  "keywords": [
+    "codex",
+    "cursor",
+    "skills",
+    "youtube",
+    "automation",
+    "bmad"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
